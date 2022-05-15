@@ -51,6 +51,26 @@
 
 /* Card  */
 
+.error-card {
+	color: #E20048;
+	font-family: 'Raleway';
+	font-weight: 600;
+	font-size: 16px;
+	margin-top: 10px;
+	width: 300px;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.error-description {
+	font-family: 'Raleway';
+	font-weight: 400;
+	font-size: 16px;
+	margin-top: 10px;
+	width: 400px;
+	margin-bottom: 20px;
+}
+
 .delete-card {
 	position: absolute;
 	top: 0;

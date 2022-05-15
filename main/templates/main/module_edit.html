@@ -18,9 +18,13 @@
 			<div>{{ form.author }}</div>
 		</div>
 		{{ formset.management_form }}
+		{% if formset.errors %}
+			<p class="error-card">Заполните форму правильно!</p>
+			<p class="error-description">Возможно вы написали слово на английском для русского перевода (или наоборот)</p>
+		{% endif %}
 		{% for card in formset %}
 		<div class="card form-row">
-			{{ card.id }}
+
 			<div class="delete-card">
 				<i class="fas fa-solid fa-xmark button-delete"></i>
 				<div class="delete-checkbox">{{ card.DELETE }}</div>
