@@ -22,7 +22,7 @@ class RegisterUserForm(forms.ModelForm):
 
     def clean_password1(self):
         password1 = self.cleaned_data['password1']
-        if password1:
+        if password1 and password1 in self.cleaned_data:
             password_validation.validate_password(password1)
         return password1
 
