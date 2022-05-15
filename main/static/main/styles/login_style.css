@@ -1,0 +1,118 @@
+/* Container  */
+
+.container {
+	display: flex;
+	width: 50%;
+	margin: 50px auto;
+	justify-content: center;
+	padding-top: 10px;
+}
+
+/* Form  */
+
+form h2 {
+	font-family: 'Raleway';
+	font-size: 400;
+	margin-bottom: 30px;
+}
+
+.wrapper-field {
+	margin-bottom: 20px;
+}
+
+.label {
+	color: black;
+	opacity: .7;
+	text-transform: uppercase;
+	font-family: 'Raleway';
+	font-size: 13px;
+	margin-top: 10px;
+	width: 300px;
+}
+
+.error input {
+	font-family: 'Raleway';
+	font-size: 16px;
+	font-weight: 600;
+	outline: none;
+	border: none;
+	border-bottom: 3px solid #E20048;
+	padding: 5px 0;
+	width: 300px;
+	border-radius: 1px;
+}
+
+.error-message {
+	color: #E20048;
+	font-family: 'Raleway';
+	font-weight: 600;
+	font-size: 13px;
+	margin-top: 10px;
+	width: 300px;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.field input {
+	font-family: 'Raleway';
+	font-size: 16px;
+	font-weight: 600;
+	outline: none;
+	border: none;
+	border-bottom: 2px solid black;
+	padding: 5px 0;
+	width: 300px;
+	border-radius: 1px;
+}
+
+.field input:focus {
+	border-bottom: 3px solid #7309AA;
+}
+
+.btn {
+	width: 100%;
+	padding: 10px;
+	font-family: 'Raleway';
+	font-size: 16px;
+	font-weight: 600;
+	color: white;
+	background: #AF66D5;
+	border: none;
+	border-radius: 5px;
+	transition: .5s;
+}
+
+.btn:hover {
+	cursor: pointer;
+	background: #7309AA;
+	transition: .5s;
+}
+
+
+/* Register */
+
+.register {
+	font-family: 'Raleway';
+	font-size: 400;
+	margin-bottom: 20px;
+}
+
+.link {
+	font-family: 'Raleway';
+	margin-bottom: 30px;
+}
+
+.link a {
+	text-decoration: none;
+	font-weight: 600;
+	color: black;
+}
+
+.link a:hover {
+	transition: .2s;
+	color: #7309AA;
+}
+
+.custom-image  {
+	font-family: 'Raleway';
+}

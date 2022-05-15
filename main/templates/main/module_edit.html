@@ -1,0 +1,92 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %}Изменение модуля{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/module_add_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-inner">
+	<h1>Изменение модуля</h1>
+	<form method="post" enctype="multipart/form-data" class="module-form" id="form-container">
+		{% csrf_token %}
+		<div class="wrapper-module-field">
+			<div>{{ form.name }}</div>
+			<div class="module-label">{{ form.name.label }}</div>
+			<div>{{ form.author }}</div>
+		</div>
+		{{ formset.management_form }}
+		{% for card in formset %}
+		<div class="card form-row">
+			{{ card.id }}
+			<div class="delete-card">
+				<i class="fas fa-solid fa-xmark button-delete"></i>
+				<div class="delete-checkbox">{{ card.DELETE }}</div>
+			</div>
+			<div class="word">
+				<div class="word-field">
+					<div class="field">{{ card.russian_translate }}</div>
+					<div class="word-field-label">{{ card.russian_translate.label }}</div>
+				</div>
+				<div class="word-field">
+					<div class="field">{{ card.eng_translate }}</div>
+					<div class="word-field-label">{{ card.eng_translate.label }}</div>
+				</div>
+			</div>
+			<div class="image">
+				<div>{{ card.image }}</div>
+			</div>
+		</div>
+		{% endfor %}
+		<div class="add-form-row card" id="add-form">Добавить карточку</div>
+
+		<input type="submit" value="Изменить" class="btn">
+	</form>
+</div>
+<script>
+        let birdForm = document.querySelectorAll(".form-row");
+        let container = document.querySelector("#form-container");
+        let addButton = document.querySelector("#add-form");
+        let totalForms = document.querySelector("#id_card_set-TOTAL_FORMS");
+
+        let formNum = birdForm.length-1;
+        addButton.addEventListener('click', addForm);
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = birdForm[birdForm.length-1].cloneNode(true);
+            let formRegex = RegExp(`card_set-(\\d){1}-`,'g');
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `card_set-${formNum}-`);
+            container.insertBefore(newForm, addButton);
+            newForm.style.display = 'flex';
+
+           	let button = newForm.querySelector(".button-delete");
+           	let newFormCheckBox = document.querySelector(`[id=id_card_set-${formNum}-DELETE]`);
+
+           	button.addEventListener('click', function() {
+           		newFormCheckBox.checked = true;
+          		newForm.style.display = 'none';
+           	})
+            
+            totalForms.setAttribute('value', `${formNum+1}`);
+        }
+
+ </script>
+ <script type="text/javascript">
+ 	let buttons = document.querySelectorAll(".button-delete");
+ 	let cardForm = document.querySelectorAll(".card")
+
+ 	for (let i = 0; i < buttons.length; i++) {
+ 		buttons[i].addEventListener('click', function() {
+ 			let checkBox = document.querySelector(`[id=id_card_set-${i}-DELETE]`)
+ 			checkBox.checked = true;
+ 			cardForm[i].style.display = 'none';
+ 		})
+ 	}
+ </script>
+{% endblock %}

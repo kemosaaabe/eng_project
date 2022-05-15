@@ -1,0 +1,143 @@
+.container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.container-inner {
+	display: flex;
+	margin: 50px 30px;
+	flex-wrap: wrap;
+	align-items: center;
+
+}
+
+.container-inner h2 {
+	font-family: 'Raleway';
+}
+
+.card {
+	width: 25%;
+	height: 300px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-right: 50px;
+	border-radius: 10px;
+	background: white;
+	font-family: 'Exo 2';
+	color: white;
+	font-size: 36px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: .2s;
+	justify-content: center;
+}
+
+.card p {
+	text-shadow: 1px 0 1px rgba(0, 0, 0, .5), 
+	0 1px 1px rgba(0, 0, 0, .5), 
+	-1px 0 1px rgba(0, 0, 0, .5), 
+	0 -1px 1px rgba(0, 0, 0, .5);
+}
+
+
+/*.card:hover {
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, .5), -1px -1px 10px rgba(0, 0, 0, .5);
+	transition: all .2s;
+}*/
+
+.eng_card {
+	display: none;
+}
+
+.card-image {
+	margin-left: 10px;
+}
+
+.card-image img {
+	border-radius: 10px;
+	width: 200px;
+	height: auto;
+}
+
+.edit-module {
+	margin-left: 30px;
+}
+
+.edit {
+	margin-bottom: 20px;
+}
+
+.btn {
+	text-align: center;
+	width: 15%;
+	padding: 10px;
+	font-family: 'Raleway';
+	font-size: 16px;
+	font-weight: 600;
+	color: white;
+	background: #AF66D5;
+	border: none;
+	transition: .5s;
+	border-radius: 5px;
+	text-decoration: none;
+	color: white;
+	display: block;
+}
+
+.btn:hover {
+	cursor: pointer;
+	background: #7309AA;
+	transition: .5s;
+}
+
+
+/* Card Flip */
+
+
+label {
+	display: block;
+	cursor: pointer;
+}
+
+.flip-card {
+	transform-style: preserve-3d;
+	transition: all 0.5s ease-in-out;
+	z-index: 1;
+	width: 100%;
+	border-radius: 10px;
+	background: #AF66D5;
+	height: 100%;
+}
+
+.flip-card .front,
+.flip-card .back {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+	border-radius: 10px;
+}
+
+.flip-card p {
+	align-self: center;
+}
+
+.flip-card .back {
+	transform: rotateX(180deg);
+	
+}
+
+input {
+	display: none;
+}
+
+:checked + .flip-card {
+	transform: rotateX(180deg);
+}
+
+

@@ -1,0 +1,23 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/module_style.css' %}">
+{% endblock %}
+
+{% block title %}Тесты{% endblock title %}
+
+{% block content %}
+<h1 class="all">Все тесты</h1>
+<div class="container-inner">
+{% for test in tests %}
+	<a href="{% url 'test' pk=test.pk %}" class="test module link-block">
+		<div class="link-inner">
+			<p class="name">Тест</p>
+			<p class="name">Тема: {{ test.name }}</p>
+			<p class="description">{{ test.description }}</p>
+		</div>
+	</a>
+{% endfor %}
+</div>
+{% endblock %}

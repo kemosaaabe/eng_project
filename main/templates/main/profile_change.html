@@ -1,0 +1,53 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/login_style.css' %}">
+{% endblock %}
+
+{% block title %}Изменение данных{% endblock %}
+
+{% block content %}
+<form method='post' enctype="multipart/form-data">
+	{% csrf_token %}
+	<h2>Изменение данных</h2>
+	<div class="wrapper-field">
+		<div class="field">{{ form.username }}</div>
+		<div class="label">{{ form.username.label }}</div>
+		{% if form.username.errors %}
+			{% for error in form.username.errors %}
+			<p class="error-message">{{error}}</p>
+			{% endfor %}
+		{% endif %}
+	</div>
+	<div class="wrapper-field">
+		<div class="field">{{ form.first_name }}</div>
+		<div class="label">{{ form.first_name.label }}</div>
+		{% if form.first_name.errors %}
+			{% for error in form.first_name.errors %}
+			<p class="error-message">{{error}}</p>
+			{% endfor %}
+		{% endif %}
+	</div>
+	<div class="wrapper-field">
+		<div class="field">{{ form.last_name }}</div>
+		<div class="label">{{ form.last_name.label }}</div>
+		{% if form.last_name.errors %}
+			{% for error in form.last_name.errors %}
+			<p class="error-message">{{error}}</p>
+			{% endfor %}
+		{% endif %}
+	</div>
+	<div class="wrapper-field">
+		<div>{{ form.image }}</div>
+		<div class="label">{{ form.image.label }}</div>
+		{% if form.image.errors %}
+			{% for error in form.image.errors %}
+			<p class="error-message">{{error}}</p>
+			{% endfor %}
+		{% endif %}
+	</div>
+
+	<input type="submit" value="Изменить данные" class="btn">
+</form>
+{% endblock %}

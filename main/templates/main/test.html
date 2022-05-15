@@ -1,0 +1,46 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/test_style.css' %}">
+{% endblock %}
+
+{% block title %}Тест {{ test.name }}{% endblock %}
+
+{% block content %}
+<div class="left bg"></div>
+<style type="text/css">
+	/*.left {
+		background-image: url("{% static 'main/girl.png' %}");
+		background-position: right top;
+		background-size: 500px;
+		background-repeat: no-repeat;
+	}
+	.right {
+		background-image: url("{% static 'main/girl2.png' %}");
+		background-position: left top;
+		background-size: 500px;
+		background-repeat: no-repeat;
+	}	*/
+</style>
+<div class="container-inner">
+	<h1>Тест: {{ test.name }}</h1>
+	<form method="post" action="{% url 'result_test' test_id=test.pk %}">
+		{% csrf_token %} 
+		{% if error_message %}
+			<div class="error-message">{{ error_message }}</div>
+		{% endif %}
+		{% for question in questions %}
+			<h2 class="question">{{ question.text }}</h2>
+			{% for answer in question.answer_set.all %}
+			<div class="answer">
+				<input class="custom-radio" type="radio" name="choice{{ forloop.parentloop.counter0 }}" id="choice{{ answer.id }}" value="{{ answer.id }}">
+				<label for="choice{{ answer.id }}">{{ answer.text }}</label><br>
+			</div>
+			{% endfor %}
+		{% endfor %}
+		<input type="submit" value="Готово" class="btn">
+	</form>
+</div>
+<div class="right bg"></div>
+{% endblock %}

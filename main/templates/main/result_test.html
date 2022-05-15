@@ -1,0 +1,40 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/test_result.css' %}">
+{% endblock %}
+
+{% block title %}Результат теста{% endblock %}
+
+{% block content %}
+<div class="container-inner">
+	<h2 class="conclusion">
+		Вы ответили правильно на {{ right_answers }} вопроса(-ов) из {{ len_questions }}
+	</h2>
+	<div>
+		{% for question in questions %}
+		<div class="question-wrapper">
+			<h2 class="question">{{ question.text }}</h2>
+			{% for answer in question.answer_set.all %}
+			{% if answer.is_right %}
+			<div class="answer-right">
+				<p>{{ answer.text }}</p>
+			</div>
+			{% else %}
+			{% if not answer.is_right and answer in answers %}
+			<div class="answer-wrong">
+				<p>{{ answer.text }}</p>
+			</div>
+			{% else %}
+			<div class="answer">
+				<p>{{ answer.text }}</p>
+			</div>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

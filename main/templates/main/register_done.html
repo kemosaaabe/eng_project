@@ -1,0 +1,16 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %}Успешная регистрация{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/login_style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div>
+	<h2 class="register">Вы успешном зарегестрировались!</h2>
+	<p class="link">Перейдите по <a href="{% url 'login' %}">ссылке</a>, чтобы выполнить вход</p>
+</div>
+{% endblock %}

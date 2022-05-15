@@ -1,0 +1,80 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %}Добавление модуля{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/module_add_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-inner">
+	<h1>Добавление модуля</h1>
+	<form method="post" enctype="multipart/form-data" class="module-form" id="form-container">
+		{% csrf_token %}
+		<div class="wrapper-module-field">
+			<div>{{ form.name }}</div>
+			<div class="module-label">{{ form.name.label }}</div>
+			<div>{{ form.author }}</div>
+		</div>
+		{{ formset.management_form }}
+		{% for card in formset %}
+		<div class="card form-row">
+			<div class="word">
+				<div class="word-field">
+					<div class="field">{{ card.russian_translate }}</div>
+					<div class="word-field-label">{{ card.russian_translate.label }}</div>
+					{% if card.russian_translate.errors %}
+						{% for error in card.russian_translate.errors %}
+							<p class="error-message">{{error}}</p>
+						{% endfor %}
+					{% endif %}
+				</div>
+				<div class="word-field">
+					<div class="field">{{ card.eng_translate }}</div>
+					<div class="word-field-label">{{ card.eng_translate.label }}</div>
+					{% if card.eng_translate.errors %}
+						{% for error in card.eng_translate.errors %}
+							<p class="error-message">{{error}}</p>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="image">
+				{{ card.image }}
+				{% if card.image.errors %}
+					{% for error in card.image.errors %}
+						<p class="error-message">{{error}}</p>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+		{% endfor %}
+		<div class="add-form-row card" id="add-form">Добавить карточку</div>
+		<input type="submit" value="Добавить" class="btn">
+
+	</form>
+</div>
+<script>
+        let birdForm = document.querySelectorAll(".card")
+        let container = document.querySelector("#form-container")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_card_set-TOTAL_FORMS")
+
+        let formNum = birdForm.length-1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = birdForm[0].cloneNode(true)
+            let formRegex = RegExp(`card_set-(\\d){1}-`,'g')
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `card_set-${formNum}-`)
+            container.insertBefore(newForm, addButton)
+            
+            totalForms.setAttribute('value', `${formNum+1}`)
+        }
+    </script>
+{% endblock %}

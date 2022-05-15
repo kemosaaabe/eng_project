@@ -1,0 +1,36 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/login_style.css' %}">
+{% endblock %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h2 class="register">Вы уже вошли в аккаунт</h2>
+{% else %}
+<form method='post'>
+	{% csrf_token %}
+	<h2>Войти в учетную запись</h2>
+	{% for field in form.visible_fields %}
+		{% if form.non_field_errors %}
+		<div class="wrapper-field">
+			<div class="error">{{ field }}</div>
+			<div class="label">{{ field.label }}</div>
+		</div>
+		{% else %}
+		<div class="wrapper-field">
+			<div class="field">{{ field }}</div>
+			<div class="label">{{ field.label }}</div>
+		</div>
+		{% endif %}
+	{% endfor %}
+	{% if form.non_field_errors %}
+	<p class="error-message">Введите корректные данные</p>
+	{% endif %}
+	<input type="submit" value="Войти" class="btn">
+</form>
+{% endif %}
+{% endblock %}

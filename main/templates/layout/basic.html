@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}Главная{% endblock %} | EngProject</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'main/styles/base_style.css' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;400;600&family=Open+Sans:wght@300;400&family=Raleway:wght@400;600&family=Work+Sans:wght@500&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/3dcb8d5ef7.js" crossorigin="anonymous"></script>
+	{% block styles %}
+	{% endblock styles %}
+</head>
+<body>
+	<header>
+		<div class="wrapper">
+			<h2><a href="{% url 'index' %}">EngProject</a></h2>
+			<nav>
+				<ul>
+					<li><a href="{% url 'index' %}">Главная</a></li>
+					<li><a href="{% url 'tests' %}">Тесты</a></li>
+					<li><a href="{% url 'modules' %}">Модули</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="info">
+			{% if user.is_authenticated %}
+			<h2 class="profile"><a href="{% url 'profile' %}">Профиль</a></h2>
+			{% endif %}
+			{% if user.is_authenticated %}
+			<h2 class="profile"><a href="{% url 'logout' %}">Выход</a></h2>
+			{% else %}
+			<h2 class="profile"><a href="{% url 'login' %}">Вход</a></h2>
+			<h2 class="profile"><a href="{% url 'register_user' %}">Регистрация</a></h2>
+			{% endif %}
+		</div>
+	</header>
+	<div class="container">
+		{% block content %}
+
+		{% endblock %}
+	</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/module_style.css' %}">
+{% endblock %}
+
+{% block title %}Модули{% endblock title %}
+
+{% block content %}
+<h1 class="all">Все модули</h1>
+<div class="container-inner">
+{% for module in modules %}
+	<a href="{% url 'module' pk=module.pk %}" class="module link-block">
+		<div class="link-inner">
+			<p class="name">{{ module.name }}</p>
+			<div class="author">
+				{% if module.author.image %}
+				<span class="image-author"><img src="{{ module.author.image.url }}"></span>
+				{% else %}
+				<span class="image-author"><img src="{% static 'main/empty_user_image.jpg' %}"></span>
+				{% endif %}
+				<p>{{ module.author }}</p>
+			</div>
+		</div>
+	</a>
+{% endfor %}
+</div>
+{% endblock %}

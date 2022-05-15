@@ -1,0 +1,69 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/profile_style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container-inner">
+	<div class="image-author">
+		{% if user.image %}
+		<img src="{{ user.image.url }}">
+		{% else %}
+		<img src="../static/main/empty_user_image.jpg">
+		{% endif %}
+	</div>
+	<div class="info-author">
+		<div>
+			<p><b>Имя пользователя:</b> {{ user.username }}</p>
+			<p>
+				<b>Имя:</b>
+				{% if user.first_name %} 
+				{{ user.first_name }}
+				{% else %}
+				Нет имени.........
+				{% endif %} 
+			</p>
+			<p>
+				<b>Фамилия:</b>
+				{% if user.last_name %} 
+				{{ user.last_name }}
+				{% else %}
+				Нет фамилии.........
+				{% endif %} </p>
+		</div>
+		<div class="change">
+			<p><a href="{% url 'change_user_info' %}">Изменить личные данные</a></p>
+			<p><a href="{% url 'password_change' %}">Изменить пароль</a></p>
+		</div>
+	</div>
+</div>
+<div class="container-modules">
+	<h1>Мои модули</h1>
+	<div class="modules">
+		{% for module in modules %}
+			<div class="module">
+				<a href="{% url 'module' pk=module.pk %}" class="link-block">
+					<div class="link-inner">
+						<p class="name">{{ module.name }}</p>
+						<div class="author">
+							{% if module.author.image %}
+							<span class="image-author-module"><img src="{{ module.author.image.url }}"></span>
+							{% else %}
+							<span class="image-author-module"><img src="{% static 'main/empty_user_image.jpg' %}"></span>
+							{% endif %}
+							<p>{{ module.author }}</p>
+
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+	<p class="add-module"><a href="{% url 'add_module' %}">Добавить модуль</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block title %}Модуль {{ module.name }}{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/card_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-inner">
+{% if cards %}
+	{% for card in cards %}
+		<label class="card">
+			<input type="checkbox">
+			{% if card.image %}
+			<div class="flip-card" style="background: no-repeat url('{{ card.image.url }}');
+								background-size: cover;
+								background-position: center;">
+				<div class="front">
+					<p>{{ card.russian_translate }}</p>
+				</div>
+				<div class="back" style="background: no-repeat url('{{ card.image.url }}');
+								background-size: cover;
+								background-position: center;">
+					<p>{{ card.eng_translate }}</p>
+				</div>
+			</div>
+			{% else %}
+			<div class="flip-card">
+				<div class="front">
+					<p>{{ card.russian_translate }}</p>
+				</div>
+				<div class="back">
+					<p>{{ card.eng_translate }}</p>
+				</div>
+			</div>
+			{% endif %}
+		</label>
+	{% endfor %}
+{% else %}
+<h2>Этот модуль пока что пустой</h2>
+{% endif %}
+</div>
+
+{% if module.author == request.user %}
+<div class="edit-module">
+	<a href="{% url 'edit_module' pk=module.pk %}" class="btn edit">Редактировать модуль</a>
+	<a href="{% url 'delete_module' pk=module.pk%}" class="btn edit">Удалить модуль</a>
+</div>
+{% else %}
+<div class="edit-module">
+	<a href="{% url 'user_profile' pk=module.author.pk %}" class="btn edit">Посмотреть профиль автора</a>
+</div>
+{% endif %}
+{% endblock %}
