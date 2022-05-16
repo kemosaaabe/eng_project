@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.views import PasswordChangeDoneView
+from django.views.generic.edit import CreateView
 from . import views
 
 urlpatterns = [
@@ -24,6 +25,7 @@ urlpatterns = [
     path('module/add', views.add_module, name='add_module'),
     path('module/delete/<int:pk>/', views.delete_module, name='delete_module'),
     path('module/edit/<int:pk>/', views.edit_module, name='edit_module'),
+    path('module/deny/', views.deny_access, name='deny'),
     path('tests/', views.show_tests, name='tests'),
     path('test/<int:pk>', views.show_test, name='test'),
     path('test/result/<int:test_id>', views.result_test, name='result_test'),

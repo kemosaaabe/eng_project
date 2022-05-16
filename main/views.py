@@ -55,6 +55,9 @@ def edit_module(request, pk):
     module = Module.objects.get(pk=pk)
     cards_formset = inlineformset_factory(Module, Card, fields='__all__')
 
+    if request.user != module.author:
+        return redirect('deny')
+
     if request.method == "POST":
         module_form = ModuleForm(request.POST, instance=module)
         card_formset = cards_formset(request.POST, request.FILES, instance=module)
@@ -141,6 +144,9 @@ class UserRegisterView(CreateView):
 def register_done(request):
     return render(request, 'main/register_done.html')
 
+
+def deny_access(request):
+    return render(request, 'main/deny_access.html')
 
 # User
 
