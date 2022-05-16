@@ -49,6 +49,9 @@ class RegisterUserForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
     image = forms.ImageField(label='Изображение',
                              widget=forms.FileInput(attrs={'class': 'custom-image'}),
+                             validators=[validators.FileExtensionValidator(
+                                 allowed_extensions={'gif', 'jpg', 'jpeg', 'png'},
+                             )],
                              required=False)
 
     class Meta:
