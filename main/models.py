@@ -11,7 +11,8 @@ class AdvUser(AbstractUser):
 
 
 class Module(models.Model):
-    author = models.ForeignKey('AdvUser', on_delete=models.PROTECT, verbose_name='Автор',
+    author = models.ForeignKey('AdvUser', on_delete=models.PROTECT,
+                               verbose_name='Автор',
                                blank=True, null=True)
     name = models.CharField(max_length=200, verbose_name='Модуль')
 
@@ -25,12 +26,14 @@ class Module(models.Model):
 
 class Card(models.Model):
     module = models.ForeignKey('Module', on_delete=models.CASCADE)
-    russian_translate = models.CharField(max_length=200, verbose_name='Русский перевод',
+    russian_translate = models.CharField(max_length=200,
+                                         verbose_name='Русский перевод',
                                          validators=[validators.RegexValidator(
                                              regex=r'[А-ЯЁа-яё]+',
                                              message='Введите слово на русском языке'
                                          )])
-    eng_translate = models.CharField(max_length=200, verbose_name='Английский перевод',
+    eng_translate = models.CharField(max_length=200,
+                                     verbose_name='Английский перевод',
                                      validators=[validators.RegexValidator(
                                          regex=r'[A-Za-z]+',
                                          message='Введите слово на английском языке'
@@ -60,7 +63,8 @@ class Test(models.Model):
 
 
 class Question(models.Model):
-    test_id = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name='Тест')
+    test_id = models.ForeignKey(Test, on_delete=models.CASCADE,
+                                verbose_name='Тест')
     text = models.TextField(verbose_name='Текст вопроса')
 
     def __str__(self):

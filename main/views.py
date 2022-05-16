@@ -1,18 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
-from .forms import RegisterUserForm
-from .models import AdvUser
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView
-from .models import Module, Card
+from django.http import HttpResponseRedirect
+from django.forms import inlineformset_factory
 from .forms import UserChangeForm
 from .forms import CardForm, ModuleForm
 from .forms import CardFormSet
-from django.http import HttpResponseRedirect
-from django.forms import inlineformset_factory
+from .forms import RegisterUserForm
+from .models import Module, Card
+from .models import AdvUser
 from .models import Test, Question, Answer
 
 
@@ -53,11 +53,11 @@ def add_module(request):
 @login_required
 def edit_module(request, pk):
     module = Module.objects.get(pk=pk)
-    cards_form_set = inlineformset_factory(Module, Card, fields='__all__')
+    cards_formset = inlineformset_factory(Module, Card, fields='__all__')
 
     if request.method == "POST":
         module_form = ModuleForm(request.POST, instance=module)
-        card_formset = cards_form_set(request.POST, request.FILES, instance=module)
+        card_formset = cards_formset(request.POST, request.FILES, instance=module)
         if module_form.is_valid() and card_formset.is_valid():
             module_form.save()
             card_formset.save()
@@ -65,7 +65,7 @@ def edit_module(request, pk):
             return HttpResponseRedirect(reverse('module', kwargs={'pk': pk}))
     else:
         module_form = ModuleForm(instance=module)
-        card_formset = cards_form_set(instance=module)
+        card_formset = cards_formset(instance=module)
 
     context = {'form': module_form, 'formset': card_formset}
     return render(request, 'main/module_edit.html', context)
@@ -102,24 +102,24 @@ def show_test(request, pk):
 def result_test(request, test_id):
     test = Test.objects.get(pk=test_id)
     questions = Question.objects.filter(test_id=test)
-    choosen_answers = []
+    chosen_answers = []
 
     for i in range(0, len(questions)):
         for answer in questions[i].answer_set.all():
             try:
                 if str(answer.id) in request.POST[f'choice{i}']:
-                    choosen_answers.append(answer)
+                    chosen_answers.append(answer)
             except (KeyError, Answer.DoesNotExist):
                 context = {'test': test, 'questions': questions,
                            'error_message': 'Ответьте на все вопросы',
                            'pk': test.pk}
                 return render(request, 'main/test.html', context)
     right_answers = []
-    for answer in choosen_answers:
+    for answer in chosen_answers:
         if answer.is_right:
             right_answers.append(answer)
     context = {'test': test, 'questions': questions,
-               'answers': choosen_answers,
+               'answers': chosen_answers,
                'right_answers': len(right_answers),
                'len_questions': len(questions)}
     return render(request, 'main/result_test.html', context)
@@ -171,14 +171,3 @@ def user_profile(request, pk):
     user = AdvUser.objects.get(pk=pk)
     context = {'user_profile': user}
     return render(request, 'main/user_profile.html', context)
-
-
-
-
-
-
-
-
-
-
-

@@ -80,4 +80,5 @@ class CardForm(forms.ModelForm):
         widgets = {'module': forms.HiddenInput}
 
 
-CardFormSet = inlineformset_factory(Module, Card, form=CardForm, fields='__all__', extra=5)
+CardFormSet = inlineformset_factory(Module, Card, form=CardForm,
+                                    fields='__all__', extra=5)
