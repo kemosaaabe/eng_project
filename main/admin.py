@@ -20,7 +20,7 @@ class QuestionInline(admin.TabularInline):
 
 
 @admin.register(Question)
-class BookAdmin(admin.ModelAdmin):
+class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionInline]
 
 
