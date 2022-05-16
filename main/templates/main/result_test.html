@@ -9,9 +9,15 @@
 
 {% block content %}
 <div class="container-inner">
+	{% if right_answers == 1 %}
+	<h2 class="conclusion">
+		Вы ответили правильно на 1 вопрос из {{ len_questions }}
+	</h2>
+	{% else %}
 	<h2 class="conclusion">
 		Вы ответили правильно на {{ right_answers }} вопроса(-ов) из {{ len_questions }}
 	</h2>
+	{% endif %}
 	<div>
 		{% for question in questions %}
 		<div class="question-wrapper">
